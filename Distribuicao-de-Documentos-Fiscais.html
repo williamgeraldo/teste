@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="/static/markdown.css"/>
+
+<title>GER</title>
+</head>
+<body>
+<div id="wrap">
+    <div id="content">
+<h1 id="dfeddfger-distribuicao-de-documentos-fiscais">DFE/DDF/GER - Distribuição de Documentos Fiscais<a class="permalink" href="#dfeddfger-distribuicao-de-documentos-fiscais"></a></h1>
+<h5 id="versao-2010020">Versao: 20.10.020<a class="permalink" href="#versao-2010020"></a></h5>
+<p>Quando um documento eletrônico (leia NFe) é emitido para um contribuinte, o arquivo XML do mesmo deve ser disponibilizado ao destinatário de alguma maneira (preferencialmente atraves do envio de uma e-mail contendo tal arquivo). Sendo obrigatório o armazenamento desses arquivos pelo prazo estabelecido na legislação (5 anos).</p>
+<p>Receber um e-mail para cada operação, baixar o arquivo e armazenar, se tornou um processo muito trabalhoso. Sendo assim, a SEFAZ criou o que chamamos de sistema de "Distribuição de Documentos Fiscais", esse sistema nos permite baixar os arquivos XML, armazena-los e utiliza-los na entrada das notas facilitando em muito o processo.</p>
+<h2 id="sobre-os-eventos-de-manifestacao-do-destinatario">Sobre os eventos de manifestação do destinatário<a class="permalink" href="#sobre-os-eventos-de-manifestacao-do-destinatario"></a></h2>
+<p>No âmbito da entrada de notas fiscais é muito importante manter uma escrituração correta de todos documentos fiscais emitidos (assim como estar ciente e tomar providência quanto a documentos emitidos indevidamente) pelos fornecedores.</p>
+<p>Tendo isso em mente a SEFAZ criou a "Manifestacão do destinatário" que permite o destinatário de um documento fiscal se manifestar quando a sua emissão atraves das seguintes maneiras (aqui camadas de eventos):</p>
+<h3 id="ciencia-da-operacao-ou-ciencia-da-emissao">“Ciência da Operação ou Ciência da Emissão”<a class="permalink" href="#ciencia-da-operacao-ou-ciencia-da-emissao"></a></h3>
+<p>Neste evento, o destinatário declara ter ciência sobre uma determinada operação destinada ao seu CNPJ ou CPF, mas não possui elementos suficientes para apresentar a sua manifestação conclusiva sobre a operação citada.</p>
+<p>Após um período determinado, todas as operações com “Ciência da Operação” deverão obrigatoriamente ter a manifestação final do destinatário declarando um dos eventos conclusivos: Confirmação da Operação, Desconhecimento ou Operação não Realizada.</p>
+<h3 id="confirmacao-da-operacao">"Confirmação da Operação"<a class="permalink" href="#confirmacao-da-operacao"></a></h3>
+<p>O evento de “Confirmação da Operação” pelo destinatário confirma a operação e o recebimento da mercadoria (para as operações com circulação de mercadoria).</p>
+<p>Se ocorrer a devolução total ou parcial das mercadorias, além do procedimento atual de geração da Nota Fiscal de devolução, também poderá ser comandado o evento da “Confirmação da operação”.</p>
+<p>O registro deste evento libera a possibilidade da empresa efetuar o download do XML da NF-e, assim com impede o cancelamento do documento por parte do emitente.</p>
+<p><strong>Nota: Após a Confirmação da Operação pelo destinatário, a empresa emitente fica automaticamente impedida de cancelar a NF-e.</strong></p>
+<h3 id="desconhecimento-da-operacao">“Desconhecimento da Operação”<a class="permalink" href="#desconhecimento-da-operacao"></a></h3>
+<p>O evento de “Desconhecimento da Operação” permite ao destinatário informar o seu desconhecimento de uma determinada operação.</p>
+<p>É utilizado quando se identifica a emissão individa ou equivocada de um documento por parte de um fornecedor para o CPF ou CNPJ. Atraves desse evento o contribuinte se omite de qualquer responsabilidade quanto não escrituração do mesmo, sendo o emitente o responsável por tomar a devida providência quando ao documento (provável cancelando do mesmo).</p>
+<h3 id="operacao-nao-realizada">“Operação não Realizada”<a class="permalink" href="#operacao-nao-realizada"></a></h3>
+<p>Em algumas situações, a empresa destinatária informa que a operação não foi realizada (com recusa de recebimento da mercadoria e outros motivos), não cabendo neste caso a emissão de uma Nota Fiscal de devolução.</p>
+<p>Este evento permite o registro da declaração de Operação não Realizada pelo destinatário, permitindo também a informação complementar da justificativa desta informação.</p>
+<p><strong>O destinatário deve apresentar uma manifestação conclusiva dentro de um prazo máximo de 180 dias, contado a partir da data de autorização da NF-e</strong></p>
+<h2 id="na-pratica">Na prática...<a class="permalink" href="#na-pratica"></a></h2>
+<p>Baseando-se no modelo de distribuição de documentos fiscais e os eventos de manifestação do destinatário, é possível garantir com escrituração completa e concisa (escriturando todos documentos emitidos corretamente ou manifestando o desconhecimento de documentos incorretos), assim como obter os arquivos XML para armazenamento conforme a obrigatoriedade e ainda facilitar a entrada das mercadorias.</p>
+<p>Com esse objetivo foi criada a rotina <strong>DFE/DDF/GER</strong> que é o gerenciador de de documentos fiscais.</p>
+<p>Nessa rotina na primeira tela é possível filtrar os documentos que se deseja visualizar considera a empresa, período, emitente (é possível encontrar notas vindas de todas as filiais de um fornecedor usando a raiz do CNPJ do mesmo, ou seja os 8 primeiros dígitos), ou a situação do documento.</p>
+<p>Um ponto importante aqui é essa situação:</p>
+<h3 id="iniciadas">Iniciadas<a class="permalink" href="#iniciadas"></a></h3>
+<p>Trata-se documentos onde se começou a fazer a manifestação (Ciência), porem ainda não foi feita a conclusão: Confirmação da operação, Não confirmação, ou Desconhecimento.</p>
+<h3 id="pendentes">Pendentes<a class="permalink" href="#pendentes"></a></h3>
+<p>São documentos pendentes de qualquer manifestação, estando estes "pendentes" de realização do mesmo.</p>
+<h3 id="concluidas">Concluídas<a class="permalink" href="#concluidas"></a></h3>
+<p>Aqui o sistema irá apresentar documentos que já tiver algum dos eventos conclusivos: Confirmação da operação, Não confirmação, ou Desconhecimento</p>
+<h3 id="todas">Todas<a class="permalink" href="#todas"></a></h3>
+<p>Ao selecionar essa opção, serão apresentados todos documentos.</p>
+<h2 id="visualizacao-principal">Visualização Principal<a class="permalink" href="#visualizacao-principal"></a></h2>
+<p>Na tela principal são exibidos todos documentos, possibilitando se locomover na lista usando as setas direcionais superior, e inferior, abandonar a listagem atraves do <kbd>End</kbd> ou selecionar um item com <kbd>Enter</kbd>.</p>
+<p>Ao selecionar um item é apresentado um menu com as seguintes opções:</p>
+<h3 id="atualizar">Atualizar<a class="permalink" href="#atualizar"></a></h3>
+<p>Essa opção atualiza a listagem apresentada obtendo os documentos mais recentes emitidos para o seu CPF/CNPJ disponível na SEFAZ.</p>
+<h3 id="criar-evento">Criar evento<a class="permalink" href="#criar-evento"></a></h3>
+<p>Permite criar os eventos explicados anteriormente.</p>
+<p>Um ponto importante aqui é que esse modulo do sistema está integrado à entada de notas, ou seja, se for realizado um evento de desconhecimento ou de não confirmação, o sistema irá impedir a entrada de tal documento para assim evitar escrituração de documentos indevidamente.</p>
+<p>Assim como irá também reconhecer eventos de ciência e confirmação realizados durante a entrada do documento.</p>
+<h3 id="download-do-xml">Download do XML<a class="permalink" href="#download-do-xml"></a></h3>
+<p>Aqui é possível fazer o download do XML, que será posteriormente usando no ato de entrada de nota.</p>
+<p>Nesse momento informações são coletadas no arquivo XML (CNPJ ou CPF, IE, Nome, Logradouro, Numero, Complemento, Bairro, CEP, Cidade, UF, Regime Tributário, Telefone, ...) para compor uma base de dados interna de emitentes. Essas informações são usadas no momento do cadastro do fornecedor para já preencher os campos e assim facilitar o processo.</p>
+<h3 id="visualizar">Visualizar<a class="permalink" href="#visualizar"></a></h3>
+<p>Nessa opção de menu você pode gerar um DANFE do documento selecionado a partir do XML baixado na opção de menu anterior.</p>
+<p>Existem duas formas de visualização desse DANFE: a normal, que se assemelha a que você recebe junto da mercadoria e a detalhada.</p>
+<p>A opção detalhada é muito útil, pois apresenta um detalhamento de valores dos itens do documento, quando ao valor de desconto, frete, seguro, CEST, outras despesas acessórias, base de calculo ST e valor de ICMS de dada produto entre outras informações.</p>
+<h3 id="consulta-no-portal">Consulta no portal<a class="permalink" href="#consulta-no-portal"></a></h3>
+<p>Por fim essa opção lhe disponibiliza uma maneira fácil de abrir a consulta da NFe da SEFAZ (Portal federal). Essa opção já abre a página do portal com a chave preenchida para facilitar o processo de consulta por qualquer que seja o motivos.</p>
+<ul>
+<li>As opções aqui apresentadas estão em constante aperfeiçoamento e a versão que você for usar pode apresentar ainda mais recursos.</li>
+</ul>
+<h2 id="consideracoes-finais">Considerações finais<a class="permalink" href="#consideracoes-finais"></a></h2>
+<p>A utilização do sistema de distribuição de documentos para obtenção, armazenamento obrigatório, e posterior utilização de arquivos XML juntamente com as opções de manifestação do destinatário integradas ao sistema de entrada de notas e cadastro de clientes, tende a possibilitar maior agilidade na execução das funções assim maior confiabilidade nos documentos escriturados. Assim sendo, utilize em <strong>todos</strong> os setores e nos dê o seu <em>feedback</em> sobre o assunto!</p>
+<p>-</p>
+<p>SoftMax Sistemas Ltda</p>
+
+    </div>
+</div>
+<script src="/static/raphael-min.js"></script>
+<script src="/static/flowchart.min.js"></script>
+<script>
+(function f() {
+    var elements = document.getElementsByClassName("flow");
+    for (var i = 0, l = elements.length; i < l; i++) {
+        var diagram = flowchart.parse(elements[i].innerText);
+        elements[i].innerHTML = "";
+        diagram.drawSVG(elements[i], {'yes-text': 'Sim', 'no-text': 'Não'});
+    }
+})();
+</script>
+</body>
+</html>
